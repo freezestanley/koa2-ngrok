@@ -1,0 +1,25 @@
+{
+  "name": "wxkoa",
+  "version": "1.0.0",
+  "description": "koa weixin",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "ejs": "^2.5.8",
+    "fs-extra": "^5.0.0",
+    "jssha": "^2.3.1",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-onerror": "^4.0.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^4.0.2",
+    "koa-views": "^6.1.4",
+    "koa-xml-parser": "^0.1.0",
+    "log4js": "^2.5.3"
+  }
+}

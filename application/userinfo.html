@@ -1,0 +1,62 @@
+<html>
+  <head>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div>this is userinfo.html</div>
+    <div id="info"></div>
+    <div onClick = "clickevent()">aaa</div>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script>
+      var token
+      window.onload = function (e) {
+        // alert(token)
+        var tokenurl = './signature'
+        axios.post(tokenurl, {
+          code: window.location.href.split('?code=')[1]
+        })
+        .then(function (response) {
+          document.getElementById.innerHTML = JSON.stringify(response.data);
+          // response.data = { 
+          //   jsapi_ticket: 'jsapi_ticket',
+          //   nonceStr: '7mxtr9pw4id',
+          //   timestamp: '1523351402',
+          //   url: 'http://example.com',
+          //   signature: 'fc852a3ccb74a741411e5fd80a67f46e1c1ff1aa' 
+          // }
+          wx.config({
+              debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+              appId: response.data.appid, // 必填，公众号的唯一标识
+              timestamp: response.data.timestamp, // 必填，生成签名的时间戳
+              nonceStr: response.data.nonceStr, // 必填，生成签名的随机串
+              signature: response.data.signature,// 必填，签名
+              jsApiList: ['getNetworkType'] // 必填，需要使用的JS接口列表
+          });
+          wx.ready(function(){
+              // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。
+            alert('=====wx.ready====')
+          });
+          wx.error(function(res){
+              // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+            alert('=====wx.error=====')
+            console.log(res)
+          });
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+      }
+      function clickevent () {
+        wx.getNetworkType({
+          success: function (res) {
+            var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+            alert(networkType)
+          },
+          cancel: function () {
+          }
+        });
+      }
+
+    </script>
+  </body>
+</html>
