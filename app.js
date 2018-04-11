@@ -32,6 +32,11 @@ app.use(koaStatic(path.resolve(__dirname, './application')))
 // 查看请求 post: url
 app.use(async (ctx, next) => {
   ctx.set('Access-Control-Allow-Origin', '*')
+  ctx.set('Access-Control-Allow-Methods', 'PUT,DELETE,POST,GET');
+  ctx.set('Access-Control-Max-Age', 3600 * 24)
+  ctx.set('Access-Control-Allow-Credentials', 'true')
+  ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+
   if (ctx.method === 'OPTIONS') {
     ctx.body = '';
   }

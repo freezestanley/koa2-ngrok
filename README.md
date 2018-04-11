@@ -19,3 +19,4 @@
 > until/sha.js 覆盖 node_modules/jssha/sha.js
 > menu 修改
 > router/index.js  baseurl 需要修改
+> koa 已处理跨域问题 使用时候可直接将vue项目起的路径指到ngrock地址

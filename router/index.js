@@ -138,4 +138,11 @@ router.post('/user', async (ctx, next) => {
   await next()
 })
 
+router.post('/test', async (ctx, next) => {
+  ctx.body = 'this is test post'
+  await next()
+}).get('/test', async (ctx, next) => {
+  ctx.body = 'this is test get'
+  await next()
+})
 module.exports = router

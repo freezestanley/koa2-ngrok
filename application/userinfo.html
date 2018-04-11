@@ -25,6 +25,26 @@
     <script>
       var token
       window.onload = function (e) {
+        var testurl = 'http://64415613.ngrok.io/test'
+        axios.get(testurl, {
+          code: '11111'
+        })
+        .then(function (response) {
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        axios.post(testurl, {
+          code: '11111'
+        })
+        .then(function (response) {
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+
         var turl = './user'
         axios.post(turl, {
           code: window.location.href.split('?code=')[1].split('&')[0]
