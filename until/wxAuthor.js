@@ -158,9 +158,7 @@ wxAuthor.prototype.getJsTicket = async function() {
 
 wxAuthor.prototype.signature = async function (url) {
   let jsTicket = await this.getJsTicket()
-  console.log('===signature===')
-  let result = sign('jsapi_ticket', 'http://example.com')
-  console.log(result)
+  let result = sign(jsTicket, url)
   return result
 }
 

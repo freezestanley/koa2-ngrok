@@ -31,6 +31,10 @@ app.use(koaStatic(path.resolve(__dirname, './application')))
 
 // 查看请求 post: url
 app.use(async (ctx, next) => {
+  ctx.set('Access-Control-Allow-Origin', '*')
+  if (ctx.method === 'OPTIONS') {
+    ctx.body = '';
+  }
   console.log(`${ctx.request.method}: ${ctx.request.url}`)
   await next()
 });

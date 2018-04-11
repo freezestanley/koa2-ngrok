@@ -4,16 +4,16 @@ const      tpl = require('../until/tpl')
 const   crypto = require('crypto')
 const      api = require('../config/api')
 const   condit = require('../config/conditional')
-const baseurl = 'https://38e929ed.ngrok.io/userinfo'
+const baseurl = 'https://64415613.ngrok.io/userinfo'
 
 router.get('/', async (ctx, next) => {
   await ctx.render('index')
-  next()
+  await next()
 })
 
 router.get('/author', async (ctx, next) => {
   ctx.body = wxAuthor.checkToken(ctx)
-  next()
+  await next()
 }).post('/author', async (ctx, next) => {
   var data = ctx.req.body.xml
   console.dir(data)
@@ -67,7 +67,7 @@ router.get('/author', async (ctx, next) => {
   }
   ctx.res.writeHead(200, {'Content-Type': 'application/xml'})
   ctx.res.end(tpl(info))
-  next()
+  await next()
 })
 
 router.get('/menu/:key', async (ctx, next) => {
@@ -108,7 +108,7 @@ router.get('/menu/:key', async (ctx, next) => {
     result = await wxAuthor.matchconditional()
     console.dir(result)
   }
-  next()
+  await next()
 })
 
 router.get('/ip', async (ctx, next) => {
@@ -120,17 +120,25 @@ router.get('/ip', async (ctx, next) => {
 //https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1b68751d55b0d827&redirect_uri=https%3a%2f%2fca6eb373.ngrok.io%2fuserinfo&response_type=code&scope=snsapi_base&state=123#wechat_redirect
 router.get('/userinfo', async (ctx, next) => {
   await ctx.render('userinfo')
-  next()
+  await next()
 })
 router.post('/signature', async (ctx, next) => {
   let data = await wxAuthor.OAuth(ctx.request.body.code)
-  let jsticket = await wxAuthor.signature('http://38e929ed.ngrok.io/userinfo/userinfo?code=071EL8if1nji3z0eVOhf1QqRhf1EL8il&state=123')
+  let jsticket = await wxAuthor.signature(`${baseurl}?code=${ctx.request.body.code}&state=123`)
   jsticket.appid = this.appid
-  // console.log('====jsticket=====')
-  // console.log(jsticket)
   // let info = await wxAuthor.getUserInfo(data.oAuthToken, data.oAuthOpenId)
   ctx.body = jsticket
-  next()
+  await next()
+})
+
+router.post('/user', async (ctx, next) => {
+  let data = await wxAuthor.OAuth(ctx.request.body.code)
+  console.log('======user=====')
+  console.log(data)
+  let info = await wxAuthor.getUserInfo(data.oAuthToken, data.oAuthOpenId)
+  console.log(info)
+  ctx.body = info
+  await next()
 })
 
 module.exports = router

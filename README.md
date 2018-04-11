@@ -12,6 +12,8 @@
 
 >> 7. 网页授权获取用户基本信息 域名 配置
 
+>> 8. supervisor app.js
+
 > jssha 用老版本
 > 用微信sample 內自带
 > until/sha.js 覆盖 node_modules/jssha/sha.js

@@ -1,22 +1,47 @@
 <html>
   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="format-detection" content="telephone=no,email=no">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="x5-fullscreen" content="true">
+      <meta name="full-screen" content="yes">
+      <meta name="fullscreen" content="yes">
+      <meta name="renderer" content="webkit">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <script>(window.__setFontSize__=function(){document.documentElement.style.fontSize = Math.min( 640, Math.max(document.documentElement.clientWidth, 320) ) / 375 * 14 + 'px'})()</script>
       <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   </head>
   <body>
     <div>this is userinfo.html</div>
+    <h1>info</h1>
     <div id="info"></div>
+    <h1>user</h1>
+    <div id="user"></div>
     <div onClick = "clickevent()">aaa</div>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
     <script>
       var token
       window.onload = function (e) {
-        // alert(token)
-        var tokenurl = './signature'
-        axios.post(tokenurl, {
-          code: window.location.href.split('?code=')[1]
+        var turl = './user'
+        axios.post(turl, {
+          code: window.location.href.split('?code=')[1].split('&')[0]
         })
         .then(function (response) {
-          document.getElementById.innerHTML = JSON.stringify(response.data);
+          document.getElementById('user').innerHTML = JSON.stringify(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+
+        var tokenurl = './signature'
+        axios.post(tokenurl, {
+          code: window.location.href.split('?code=')[1].split('&')[0]
+        })
+        .then(function (response) {
+          document.getElementById('info').innerHTML = JSON.stringify(response.data);
           // response.data = { 
           //   jsapi_ticket: 'jsapi_ticket',
           //   nonceStr: '7mxtr9pw4id',
