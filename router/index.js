@@ -133,10 +133,7 @@ router.post('/signature', async (ctx, next) => {
 
 router.post('/user', async (ctx, next) => {
   let data = await wxAuthor.OAuth(ctx.request.body.code)
-  console.log('======user=====')
-  console.log(data)
   let info = await wxAuthor.getUserInfo(data.oAuthToken, data.oAuthOpenId)
-  console.log(info)
   ctx.body = info
   await next()
 })

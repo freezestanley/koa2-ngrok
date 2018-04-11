@@ -17,3 +17,5 @@
 > jssha 用老版本
 > 用微信sample 內自带
 > until/sha.js 覆盖 node_modules/jssha/sha.js
+> menu 修改
+> router/index.js  baseurl 需要修改
