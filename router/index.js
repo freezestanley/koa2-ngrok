@@ -10,7 +10,10 @@ router.get('/', async (ctx, next) => {
   await ctx.render('index')
   await next()
 })
-
+router.get('/base', async (ctx, next) => {
+  await ctx.render('vuemock')
+  await next()
+})
 router.get('/author', async (ctx, next) => {
   ctx.body = wxAuthor.checkToken(ctx)
   await next()

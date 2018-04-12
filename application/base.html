@@ -1,6 +1,79 @@
-<html>
-  <head></head>
-  <body>
-    <div>this is base.html</div>
-  </body>
+<!DOCTYPE html>
+<head>
+  <title>myVue</title>
+</head>
+<style>
+  #app {
+    text-align: center;
+  }
+</style>
+<body>
+  <div id="app">
+    <form>
+      <input type="text"  v-model="number">
+      <button type="button" v-click="increment">增加</button>
+    </form>
+    <h3 v-bind="number"></h3>
+  </div>
+</body>
+
+<script>
+  function myVue(options){
+    this._init(options)
+  }
+  myVue.prototype._init = function (options) {
+    this.$options = options
+    this.$el = document.querySelector(options.el)
+    this.$data = optiions.data
+    this.$methods = options.methods
+    this._binding = {}
+    this._observe(this.$data)
+    this._complie(this.$el)
+  }
+
+  myVue.prototype._observe = function (obj) {
+    var value
+    for (key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        this._binding[key] = {
+          _directives: []
+        }
+      }
+      value = obj[key]
+      Object.defineProperty(this.$data, key, {
+        enumerable: true,
+        configurable: true,
+        get: function () {
+          return value
+        },
+        set: function (newVal) {
+          if(value !== newVal) {
+            value = newVal
+            binding._directives.forEach(function (item) {
+              item.update()
+            })
+          }
+        }
+      })
+    }
+  }
+
+  myVue.prototype._complie = function (root) {
+    
+  }
+
+  window.onload = function() {
+    var app = new myVue({
+      el:'#app',
+      data: {
+        number: 0
+      },
+      methods: {
+        increment: function() {
+          this.number ++;
+        },
+      }
+    })
+  }
+</script>
 </html>
